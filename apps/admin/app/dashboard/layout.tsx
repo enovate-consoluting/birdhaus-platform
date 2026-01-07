@@ -80,8 +80,25 @@ export default function DashboardLayout({
     logout('/login');
   };
 
-  const handleSwitchToFactory = () => {
-    window.location.href = 'https://birdhausapp.com';
+  const handleSwitchToFactory = async () => {
+    try {
+      // Generate SSO token
+      const response = await fetch('/api/auth/sso-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user }),
+      });
+      const result = await response.json();
+      if (result.success && result.token) {
+        // Redirect to Factory with SSO token
+        window.location.href = `https://birdhausapp.com/auth/callback?token=${result.token}`;
+      } else {
+        // Fallback to regular page
+        window.location.href = 'https://birdhausapp.com';
+      }
+    } catch {
+      window.location.href = 'https://birdhausapp.com';
+    }
   };
 
   const getPageTitle = () => {
