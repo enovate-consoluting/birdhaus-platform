@@ -11,7 +11,7 @@
     "dev:admin": "npm run dev --workspace=apps/admin",
     "build:factory": "npm run build --workspace=apps/factory",
     "build:admin": "npm run build --workspace=apps/admin",
-    "build": "npm run build --workspaces --if-present"
+    "build": "npm run build --workspace=apps/admin"
   },
   "devDependencies": {
     "turbo": "^2.0.0"
