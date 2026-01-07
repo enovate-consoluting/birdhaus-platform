@@ -1,11 +1,11 @@
 /**
  * NFC Errors API
- * Fetches NFC error logs from Legacy MySQL
+ * Fetches NFC error logs from Supabase
  * Last Modified: January 2026
  */
 
 import { NextResponse } from 'next/server';
-import { getNfcErrorLogs } from '@/lib/legacy-db';
+import { getNfcErrorLogs } from '@/lib/supabase-db';
 
 export async function GET(request: Request) {
   try {

@@ -1,11 +1,11 @@
 /**
  * NFC Tracking API
- * Fetches NFC tracking/identify data from Legacy MySQL
+ * Fetches NFC tracking/identify data from Supabase
  * Last Modified: January 2026
  */
 
 import { NextResponse } from 'next/server';
-import { getNfcTracking, getClientsWithNfc } from '@/lib/legacy-db';
+import { getNfcTracking, getClientsWithNfc } from '@/lib/supabase-db';
 
 export async function GET(request: Request) {
   try {

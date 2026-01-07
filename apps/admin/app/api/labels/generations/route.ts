@@ -1,11 +1,11 @@
 /**
  * Labels Generations API
- * Fetches password generation batches from Legacy MySQL
+ * Fetches password generation batches from Supabase
  * Last Modified: January 2026
  */
 
 import { NextResponse } from 'next/server';
-import { getPassGenerations } from '@/lib/legacy-db';
+import { getPassGenerations } from '@/lib/supabase-db';
 
 export async function GET(request: Request) {
   try {

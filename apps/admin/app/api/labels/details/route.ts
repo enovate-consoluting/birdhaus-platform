@@ -1,11 +1,11 @@
 /**
  * Label Details API
- * Fetches label password details from Legacy MySQL
+ * Fetches label password details from Supabase
  * Last Modified: January 2026
  */
 
 import { NextResponse } from 'next/server';
-import { getLabelPassDetails } from '@/lib/legacy-db';
+import { getLabelPassDetails } from '@/lib/supabase-db';
 
 export async function GET(request: Request) {
   try {

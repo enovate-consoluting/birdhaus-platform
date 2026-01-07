@@ -1,11 +1,11 @@
 /**
  * NFC Clients API
- * Fetches clients that have NFC tags from Legacy MySQL
+ * Fetches clients that have NFC tags from Supabase
  * Last Modified: January 2026
  */
 
 import { NextResponse } from 'next/server';
-import { getClientsWithNfc } from '@/lib/legacy-db';
+import { getClientsWithNfc } from '@/lib/supabase-db';
 
 export async function GET() {
   try {

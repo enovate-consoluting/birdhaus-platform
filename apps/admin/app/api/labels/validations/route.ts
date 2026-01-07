@@ -1,11 +1,11 @@
 /**
  * Label Validations API
- * Fetches validation history from Legacy MySQL
+ * Fetches validation history from Supabase
  * Last Modified: January 2026
  */
 
 import { NextResponse } from 'next/server';
-import { getLabelValidations, getPasswordValidations, getPasswordDetail } from '@/lib/legacy-db';
+import { getLabelValidations, getPasswordValidations, getPasswordDetail } from '@/lib/supabase-db';
 
 export async function GET(request: Request) {
   try {

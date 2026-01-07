@@ -1,11 +1,11 @@
 /**
  * NFC Inventory API
- * Fetches spool inventory from Legacy MySQL
+ * Fetches spool inventory from Supabase
  * Last Modified: January 2026
  */
 
 import { NextResponse } from 'next/server';
-import { getSpoolInventory } from '@/lib/legacy-db';
+import { getSpoolInventory } from '@/lib/supabase-db';
 
 export async function GET() {
   try {

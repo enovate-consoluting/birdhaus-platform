@@ -1,11 +1,11 @@
 /**
  * NFC Tag API
- * Fetches individual tag info from Legacy MySQL
+ * Fetches individual tag info from Supabase
  * Last Modified: January 2026
  */
 
 import { NextResponse } from 'next/server';
-import { getNfcTagBySeqNum } from '@/lib/legacy-db';
+import { getNfcTagBySeqNum } from '@/lib/supabase-db';
 
 export async function GET(request: Request) {
   try {

@@ -1,11 +1,11 @@
 /**
  * Clients API
- * Fetches approved clients from Legacy MySQL
+ * Fetches approved clients from Supabase
  * Last Modified: January 2026
  */
 
 import { NextResponse } from 'next/server';
-import { getClients } from '@/lib/legacy-db';
+import { getClients } from '@/lib/supabase-db';
 
 export async function GET(request: Request) {
   try {
