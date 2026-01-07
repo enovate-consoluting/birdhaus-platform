@@ -11,7 +11,7 @@ import { getServiceSupabase } from './supabase';
 // ============================================
 
 export interface Client {
-  id: number;
+  client_id: number;
   company_name: string;
   status: string;
 }
@@ -141,7 +141,7 @@ export async function getClients(page?: string): Promise<Client[]> {
 
   let query = supabase
     .from('clients')
-    .select('id, company_name, status')
+    .select('client_id, company_name, status')
     .eq('status', 'Approved')
     .order('company_name');
 
@@ -573,9 +573,9 @@ export async function getClientsWithNfc(): Promise<Client[]> {
 
   const { data, error } = await supabase
     .from('clients')
-    .select('id, company_name, status')
+    .select('client_id, company_name, status')
     .eq('status', 'Approved')
-    .in('id', clientIds)
+    .in('client_id', clientIds)
     .order('company_name');
 
   if (error) {
