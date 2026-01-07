@@ -156,7 +156,7 @@ export default function LabelsGeneratePage() {
           </button>
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-600 text-white text-xs font-medium rounded-lg hover:bg-violet-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             <Plus className="w-3.5 h-3.5" />
             Add New
@@ -175,12 +175,12 @@ export default function LabelsGeneratePage() {
               placeholder="Find by password or serial..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-violet-500"
+              className="w-full pl-8 pr-3 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
           </div>
           <button
             type="submit"
-            className="px-3 py-1.5 bg-violet-600 text-white text-xs font-medium rounded-lg hover:bg-violet-700 transition-colors"
+            className="px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             <Search className="w-3.5 h-3.5" />
           </button>
@@ -208,19 +208,19 @@ export default function LabelsGeneratePage() {
             placeholder="Serial From"
             value={serialFrom}
             onChange={(e) => setSerialFrom(e.target.value)}
-            className="w-28 px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-violet-500"
+            className="w-28 px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           <input
             type="text"
             placeholder="Serial To"
             value={serialTo}
             onChange={(e) => setSerialTo(e.target.value)}
-            className="w-28 px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-violet-500"
+            className="w-28 px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
           />
           <select
             value={selectedClient}
             onChange={(e) => setSelectedClient(e.target.value)}
-            className="w-40 px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-violet-500 bg-white"
+            className="w-40 px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white"
           >
             <option value="">Select Client</option>
             <option value="Unassigned">Unassigned</option>
@@ -233,13 +233,13 @@ export default function LabelsGeneratePage() {
               type="checkbox"
               checked={overrideAssignment}
               onChange={(e) => setOverrideAssignment(e.target.checked)}
-              className="w-3.5 h-3.5 rounded border-gray-300 text-violet-600 focus:ring-violet-500"
+              className="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
             Override
           </label>
           <button
             type="submit"
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-violet-600 text-white text-xs font-medium rounded-lg hover:bg-violet-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             <ArrowRight className="w-3.5 h-3.5" />
             Proceed
@@ -255,7 +255,7 @@ export default function LabelsGeneratePage() {
 
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <Loader2 className="w-5 h-5 text-violet-600 animate-spin" />
+            <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />
             <span className="ml-2 text-xs text-gray-500">Loading from database...</span>
           </div>
         ) : error ? (
@@ -263,7 +263,7 @@ export default function LabelsGeneratePage() {
             <p className="text-xs text-red-500">{error}</p>
             <button
               onClick={() => fetchGenerations()}
-              className="mt-2 text-xs text-violet-600 hover:underline"
+              className="mt-2 text-xs text-blue-600 hover:underline"
             >
               Try again
             </button>
@@ -308,7 +308,7 @@ export default function LabelsGeneratePage() {
                     <td className="px-3 py-2 text-gray-600">{gen.alpha_char || '-'}</td>
                     <td className="px-3 py-2 text-gray-500">{formatDate(gen.create_dt)}</td>
                     <td className="px-3 py-2">
-                      <button className="p-1 text-gray-400 hover:text-violet-600 hover:bg-violet-50 rounded transition-colors">
+                      <button className="p-1 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors">
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                     </td>
@@ -345,7 +345,7 @@ export default function LabelsGeneratePage() {
                     <select
                       value={newGen.client}
                       onChange={(e) => setNewGen({ ...newGen, client: e.target.value })}
-                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-violet-500 bg-white"
+                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white"
                     >
                       <option value="">Choose Client</option>
                       {clients.map((c) => (
@@ -360,7 +360,7 @@ export default function LabelsGeneratePage() {
                       value={newGen.numPasswords}
                       onChange={(e) => setNewGen({ ...newGen, numPasswords: e.target.value })}
                       placeholder="Enter a number"
-                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-violet-500"
+                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -368,7 +368,7 @@ export default function LabelsGeneratePage() {
                     <select
                       value={newGen.passLength}
                       onChange={(e) => setNewGen({ ...newGen, passLength: e.target.value })}
-                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-violet-500 bg-white"
+                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white"
                     >
                       {[...Array(30)].map((_, i) => (
                         <option key={i + 1} value={i + 1}>{i + 1}</option>
@@ -380,7 +380,7 @@ export default function LabelsGeneratePage() {
                     <select
                       value={newGen.includeLetter}
                       onChange={(e) => setNewGen({ ...newGen, includeLetter: e.target.value })}
-                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-violet-500 bg-white"
+                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 bg-white"
                     >
                       <option value="0">No</option>
                       <option value="1">Yes - Start with provided letter</option>
@@ -397,7 +397,7 @@ export default function LabelsGeneratePage() {
                       value={newGen.letter}
                       onChange={(e) => setNewGen({ ...newGen, letter: e.target.value.toUpperCase() })}
                       placeholder="A-Z"
-                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-violet-500"
+                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
                   <div>
@@ -407,7 +407,7 @@ export default function LabelsGeneratePage() {
                       value={newGen.note}
                       onChange={(e) => setNewGen({ ...newGen, note: e.target.value })}
                       placeholder="Internal note"
-                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-violet-500"
+                      className="w-full px-2.5 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
                     />
                   </div>
                 </div>
@@ -421,7 +421,7 @@ export default function LabelsGeneratePage() {
                       type="checkbox"
                       checked={newGen.verifyOnce}
                       onChange={(e) => setNewGen({ ...newGen, verifyOnce: e.target.checked })}
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-violet-600 focus:ring-violet-500"
+                      className="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
                     Verify Only Once?
                   </label>
@@ -430,7 +430,7 @@ export default function LabelsGeneratePage() {
                       type="checkbox"
                       checked={newGen.excludeStats}
                       onChange={(e) => setNewGen({ ...newGen, excludeStats: e.target.checked })}
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-violet-600 focus:ring-violet-500"
+                      className="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
                     Exclude from statistics?
                   </label>
@@ -439,7 +439,7 @@ export default function LabelsGeneratePage() {
                       type="checkbox"
                       checked={newGen.includeSerial}
                       onChange={(e) => setNewGen({ ...newGen, includeSerial: e.target.checked })}
-                      className="w-3.5 h-3.5 rounded border-gray-300 text-violet-600 focus:ring-violet-500"
+                      className="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
                     Include Serial Number in spreadsheet?
                   </label>
@@ -449,7 +449,7 @@ export default function LabelsGeneratePage() {
               <div className="flex gap-2 pt-2">
                 <button
                   type="submit"
-                  className="flex-1 px-3 py-2 bg-violet-600 text-white text-xs font-medium rounded-lg hover:bg-violet-700 transition-colors"
+                  className="flex-1 px-3 py-2 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Generate
                 </button>

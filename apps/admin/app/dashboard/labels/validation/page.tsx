@@ -9,8 +9,6 @@
 import { useState } from 'react';
 import {
   Search,
-  CheckCircle,
-  RefreshCw,
   Loader2,
   AlertCircle,
   Check,
@@ -76,17 +74,9 @@ export default function LabelsValidationPage() {
 
       if (data.success) {
         if (data.type === 'legacy') {
-          setResult({
-            type: 'legacy',
-            validations: data.validations,
-          });
+          setResult({ type: 'legacy', validations: data.validations });
         } else if (data.type === 'password') {
-          setResult({
-            type: 'password',
-            validations: data.validations,
-            detail: data.detail,
-          });
-          // Set initial verify once override state
+          setResult({ type: 'password', validations: data.validations, detail: data.detail });
           if (data.detail) {
             setVerifyOnceOverride(
               data.detail.verify_once_override === 'Y' ||
@@ -100,16 +90,6 @@ export default function LabelsValidationPage() {
     } finally {
       setSearching(false);
     }
-  };
-
-  const handleResetValidation = () => {
-    // TODO: Implement reset (read-only for now)
-    alert('Reset functionality requires write access to the database');
-  };
-
-  const handleSaveOverride = () => {
-    // TODO: Implement save override (read-only for now)
-    alert(`Save verify once override (${verifyOnceOverride ? 'Yes' : 'No'}) requires write access to the database`);
   };
 
   const formatDate = (dateStr: string) => {
@@ -130,49 +110,38 @@ export default function LabelsValidationPage() {
       : (result?.validations[0] as LegacyValidation)?.verify_once === 'Y';
 
   return (
-    <div className="space-y-6">
+    <div className="p-3 lg:p-4">
       {/* Header */}
-      <div className="flex items-center gap-3">
-        <div className="p-2 bg-violet-100 rounded-lg">
-          <Search className="h-6 w-6 text-violet-600" />
-        </div>
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Manage Validations</h1>
-          <p className="text-gray-500">Search and manage label validation history</p>
-        </div>
+      <div className="mb-4">
+        <h1 className="text-sm font-semibold text-gray-900">Manage Validations</h1>
+        <p className="text-[11px] text-gray-500">Search label validation history</p>
       </div>
 
-      {/* Search Section */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
-          <h2 className="font-semibold text-gray-900">Search Label</h2>
+      {/* Search */}
+      <div className="bg-white rounded-lg border border-gray-100 mb-3">
+        <div className="px-3 py-2 border-b border-gray-50">
+          <h2 className="text-xs font-semibold text-gray-700">Search Label</h2>
         </div>
-        <div className="p-4">
-          <form onSubmit={handleSearch}>
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <input
-                  type="text"
-                  value={searchCode}
-                  onChange={(e) => setSearchCode(e.target.value)}
-                  placeholder="Enter label code or password"
-                  className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent"
-                />
-              </div>
-              <button
-                type="submit"
-                disabled={searching || !searchCode.trim()}
-                className="flex items-center gap-2 px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-              >
-                {searching ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Search className="h-4 w-4" />
-                )}
-                Search
-              </button>
+        <div className="p-3">
+          <form onSubmit={handleSearch} className="flex gap-2">
+            <div className="relative flex-1">
+              <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+              <input
+                type="text"
+                value={searchCode}
+                onChange={(e) => setSearchCode(e.target.value)}
+                placeholder="Enter label code or password"
+                className="w-full pl-8 pr-3 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
             </div>
+            <button
+              type="submit"
+              disabled={searching || !searchCode.trim()}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs text-white bg-blue-500 hover:bg-blue-600 disabled:opacity-50 rounded-lg transition-colors"
+            >
+              {searching ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Search className="w-3.5 h-3.5" />}
+              Search
+            </button>
           </form>
         </div>
       </div>
@@ -182,35 +151,33 @@ export default function LabelsValidationPage() {
         <>
           {/* Verify Once Section */}
           {result && result.type === 'password' && (
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <div className="px-4 py-3 bg-gray-50 border-b border-gray-200 flex items-center justify-between">
-                <h2 className="font-semibold text-gray-900">Verify Once</h2>
+            <div className="bg-white rounded-lg border border-gray-100 mb-3">
+              <div className="px-3 py-2 border-b border-gray-50 flex items-center justify-between">
+                <h2 className="text-xs font-semibold text-gray-700">Verify Once</h2>
                 {isVerifyOnce && hasValidations && (
                   <button
-                    onClick={handleResetValidation}
-                    className="flex items-center gap-2 px-3 py-1.5 text-sm bg-orange-100 text-orange-700 hover:bg-orange-200 rounded-lg transition-colors"
+                    onClick={() => alert('Reset requires write access')}
+                    className="flex items-center gap-1 px-2 py-1 text-[10px] text-amber-700 bg-amber-50 hover:bg-amber-100 rounded transition-colors"
                   >
-                    <RotateCcw className="h-4 w-4" />
-                    Reset Validation
+                    <RotateCcw className="w-3 h-3" />
+                    Reset
                   </button>
                 )}
               </div>
-              <div className="p-4 space-y-4">
-                <label className="flex items-center gap-3 cursor-pointer">
+              <div className="p-3 flex items-center justify-between">
+                <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={verifyOnceOverride}
                     onChange={(e) => setVerifyOnceOverride(e.target.checked)}
-                    className="w-4 h-4 text-violet-600 border-gray-300 rounded focus:ring-violet-500"
+                    className="w-3.5 h-3.5 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
                   />
-                  <span className="text-sm text-gray-700">Verify once?</span>
+                  <span className="text-xs text-gray-600">Verify once?</span>
                 </label>
-
                 <button
-                  onClick={handleSaveOverride}
-                  className="flex items-center gap-2 px-4 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors"
+                  onClick={() => alert('Save requires write access')}
+                  className="px-2.5 py-1 text-xs text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
                 >
-                  <CheckCircle className="h-4 w-4" />
                   Save
                 </button>
               </div>
@@ -219,82 +186,49 @@ export default function LabelsValidationPage() {
 
           {/* Validations Table */}
           {hasValidations ? (
-            <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
-                <h2 className="font-semibold text-gray-900">
-                  Validation History ({result.validations.length}{' '}
-                  {result.validations.length === 1 ? 'record' : 'records'})
+            <div className="bg-white rounded-lg border border-gray-100 overflow-hidden">
+              <div className="px-3 py-2 border-b border-gray-50">
+                <h2 className="text-xs font-semibold text-gray-700">
+                  Validation History ({result.validations.length})
                 </h2>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead className="bg-gray-50 border-b border-gray-200">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Date
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Client
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        IP Address
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Label
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Reset
-                      </th>
+                  <thead>
+                    <tr className="border-b border-gray-100 bg-gray-50/50">
+                      <th className="px-3 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Date</th>
+                      <th className="px-3 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Client</th>
+                      <th className="px-3 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">IP</th>
+                      <th className="px-3 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Label</th>
+                      <th className="px-3 py-2 text-left text-[10px] font-semibold text-gray-500 uppercase">Reset</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-100">
+                  <tbody className="divide-y divide-gray-50">
                     {result.type === 'legacy'
                       ? (result.validations as LegacyValidation[]).map((v) => (
-                          <tr key={v.validation_id} className="hover:bg-gray-50">
-                            <td className="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">
-                              {formatDate(v.create_dt)}
-                            </td>
-                            <td className="px-4 py-3 text-sm text-gray-700">
-                              {v.company_name}
-                            </td>
-                            <td className="px-4 py-3 text-sm text-gray-600 font-mono">
-                              {v.IP_addr}
-                            </td>
-                            <td className="px-4 py-3 text-sm font-medium text-gray-900">
-                              {v.validation_code}
-                            </td>
-                            <td className="px-4 py-3 text-sm">
+                          <tr key={v.validation_id} className="hover:bg-gray-50/50">
+                            <td className="px-3 py-2 text-[11px] text-gray-500">{formatDate(v.create_dt)}</td>
+                            <td className="px-3 py-2 text-xs text-gray-900">{v.company_name}</td>
+                            <td className="px-3 py-2 text-[11px] text-gray-500 font-mono">{v.IP_addr}</td>
+                            <td className="px-3 py-2 text-xs font-medium text-gray-700">{v.validation_code}</td>
+                            <td className="px-3 py-2">
                               {v.reset ? (
-                                <span className="inline-flex items-center gap-1 text-green-600">
-                                  <Check className="h-4 w-4" />
-                                  Yes
+                                <span className="inline-flex items-center gap-0.5 text-emerald-600 text-[10px]">
+                                  <Check className="w-3 h-3" /> Yes
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-1 text-gray-400">
-                                  <X className="h-4 w-4" />
-                                  No
-                                </span>
+                                <span className="text-gray-300 text-[10px]">No</span>
                               )}
                             </td>
                           </tr>
                         ))
                       : (result.validations as PasswordValidation[]).map((v) => (
-                          <tr key={v.label_pass_val_id} className="hover:bg-gray-50">
-                            <td className="px-4 py-3 text-sm text-gray-600 whitespace-nowrap">
-                              {formatDate(v.create_dt)}
-                            </td>
-                            <td className="px-4 py-3 text-sm text-gray-700">
-                              {v.company_name}
-                            </td>
-                            <td className="px-4 py-3 text-sm text-gray-600 font-mono">
-                              {v.IP_addr}
-                            </td>
-                            <td className="px-4 py-3 text-sm font-medium text-gray-900">
-                              {v.password}
-                            </td>
-                            <td className="px-4 py-3 text-sm">
-                              <span className="text-gray-400">-</span>
-                            </td>
+                          <tr key={v.label_pass_val_id} className="hover:bg-gray-50/50">
+                            <td className="px-3 py-2 text-[11px] text-gray-500">{formatDate(v.create_dt)}</td>
+                            <td className="px-3 py-2 text-xs text-gray-900">{v.company_name}</td>
+                            <td className="px-3 py-2 text-[11px] text-gray-500 font-mono">{v.IP_addr}</td>
+                            <td className="px-3 py-2 text-xs font-medium text-gray-700">{v.password}</td>
+                            <td className="px-3 py-2 text-gray-300 text-[10px]">-</td>
                           </tr>
                         ))}
                   </tbody>
@@ -302,13 +236,10 @@ export default function LabelsValidationPage() {
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-xl border border-gray-200 p-8 text-center">
-              <AlertCircle className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-              <p className="text-gray-600">
-                No validations found for label <strong className="text-gray-900">{searchCode}</strong>
-              </p>
-              <p className="text-sm text-gray-400 mt-1">
-                Try searching with a different code or password
+            <div className="bg-white rounded-lg border border-gray-100 p-6 text-center">
+              <AlertCircle className="w-8 h-8 text-gray-200 mx-auto mb-2" />
+              <p className="text-xs text-gray-500">
+                No validations found for <span className="font-medium text-gray-700">{searchCode}</span>
               </p>
             </div>
           )}
