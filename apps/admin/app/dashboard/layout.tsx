@@ -1,6 +1,6 @@
 /**
  * Dashboard Layout - Admin Platform
- * Collapsible sidebar navigation
+ * Compact design with collapsible sidebar
  * Last Modified: January 2026
  */
 
@@ -23,7 +23,6 @@ import {
   ChevronRight,
   Plus,
   List,
-  Search,
   CheckCircle,
   Package,
   Fingerprint,
@@ -93,12 +92,10 @@ export default function DashboardLayout({
     setLoading(false);
   }, [router]);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setShowMobileMenu(false);
   }, [pathname]);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (showMobileMenu) {
       document.body.style.overflow = 'hidden';
@@ -167,7 +164,7 @@ export default function DashboardLayout({
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-600">Loading...</div>
+        <div className="text-gray-500 text-sm">Loading...</div>
       </div>
     );
   }
@@ -177,62 +174,55 @@ export default function DashboardLayout({
   }
 
   const SidebarContent = ({ onLinkClick, onClose }: { onLinkClick?: () => void; onClose?: () => void }) => (
-    <div className="flex flex-col h-full">
-      {/* Logo Section */}
-      <div className="h-16 px-4 border-b border-gray-100 flex items-center justify-between">
+    <div className="flex flex-col h-full text-[13px]">
+      {/* Logo Section - Compact */}
+      <div className="h-12 px-3 border-b border-gray-100 flex items-center justify-between">
         <Link
           href="/dashboard"
           onClick={onLinkClick}
-          className="flex-1 text-center lg:text-left hover:opacity-80 transition-opacity cursor-pointer"
+          className="hover:opacity-80 transition-opacity"
         >
-          <h1 className="text-xl font-bold text-gray-900">BirdHaus</h1>
-          <p className="text-xs text-gray-500">Admin Platform</p>
+          <h1 className="text-base font-bold text-gray-900">BirdHaus</h1>
         </Link>
         {onClose && (
-          <button
-            onClick={onClose}
-            className="lg:hidden p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
-            aria-label="Close sidebar"
-          >
-            <X className="w-5 h-5 text-gray-600" />
+          <button onClick={onClose} className="lg:hidden p-1 hover:bg-gray-100 rounded">
+            <X className="w-4 h-4 text-gray-500" />
           </button>
         )}
       </div>
 
-      {/* User Profile Section */}
-      <div className="px-4 py-3 border-b border-gray-100">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold flex-shrink-0 text-sm">
+      {/* User Profile - Compact */}
+      <div className="px-3 py-2 border-b border-gray-100">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center text-white font-medium text-xs">
             {getInitial(user?.name || '')}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">{user?.name}</p>
-            <p className="text-xs text-gray-500">{formatRole(user?.role || '')}</p>
+            <p className="text-xs font-medium text-gray-900 truncate">{user?.name}</p>
+            <p className="text-[10px] text-gray-500">{formatRole(user?.role || '')}</p>
           </div>
         </div>
       </div>
 
-      {/* Mode Switcher */}
-      <div className="px-4 py-3 border-b border-gray-100">
-        <div className="flex gap-2">
+      {/* Mode Switcher - Compact */}
+      <div className="px-3 py-2 border-b border-gray-100">
+        <div className="flex gap-1">
           <button
             onClick={handleSwitchToFactory}
-            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors"
+            className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-gray-100 text-gray-600 text-xs font-medium rounded hover:bg-gray-200 transition-colors"
           >
-            <Factory className="w-4 h-4" />
+            <Factory className="w-3 h-3" />
             Factory
           </button>
-          <button
-            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg"
-          >
-            <Shield className="w-4 h-4" />
+          <button className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 bg-blue-600 text-white text-xs font-medium rounded">
+            <Shield className="w-3 h-3" />
             Admin
           </button>
         </div>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 overflow-y-auto py-2">
+      {/* Navigation - Compact */}
+      <nav className="flex-1 overflow-y-auto py-1">
         {adminNavItems.map((item) => {
           const Icon = item.icon;
           const isExpanded = expandedSections.has(item.name);
@@ -241,27 +231,25 @@ export default function DashboardLayout({
 
           if (hasChildren) {
             return (
-              <div key={item.name} className="mb-1">
+              <div key={item.name}>
                 <button
                   onClick={() => toggleSection(item.name)}
-                  className={`w-full flex items-center justify-between px-4 py-2.5 text-sm transition-colors ${
-                    isActive
-                      ? 'text-blue-600 bg-blue-50'
-                      : 'text-gray-700 hover:bg-gray-50'
+                  className={`w-full flex items-center justify-between px-3 py-1.5 transition-colors ${
+                    isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:bg-gray-50'
                   }`}
                 >
-                  <div className="flex items-center gap-3">
-                    <Icon className={`w-5 h-5 ${isActive ? 'text-blue-600' : 'text-gray-400'}`} />
+                  <div className="flex items-center gap-2">
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600' : 'text-gray-400'}`} />
                     <span className="font-medium">{item.name}</span>
                   </div>
                   {isExpanded ? (
-                    <ChevronDown className="w-4 h-4 text-gray-400" />
+                    <ChevronDown className="w-3 h-3 text-gray-400" />
                   ) : (
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                    <ChevronRight className="w-3 h-3 text-gray-400" />
                   )}
                 </button>
                 {isExpanded && (
-                  <div className="ml-4 border-l border-gray-200">
+                  <div className="ml-3 border-l border-gray-200">
                     {item.children!.map((child) => {
                       const ChildIcon = child.icon;
                       const isChildActive = pathname === child.href || pathname.startsWith(child.href + '/');
@@ -270,13 +258,11 @@ export default function DashboardLayout({
                           key={child.href}
                           href={child.href}
                           onClick={onLinkClick}
-                          className={`flex items-center gap-3 px-4 py-2 text-sm transition-colors ${
-                            isChildActive
-                              ? 'text-blue-600 bg-blue-50'
-                              : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                          className={`flex items-center gap-2 px-3 py-1.5 transition-colors ${
+                            isChildActive ? 'text-blue-600 bg-blue-50' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
                           }`}
                         >
-                          <ChildIcon className={`w-4 h-4 ${isChildActive ? 'text-blue-600' : 'text-gray-400'}`} />
+                          <ChildIcon className={`w-3.5 h-3.5 ${isChildActive ? 'text-blue-600' : 'text-gray-400'}`} />
                           <span>{child.name}</span>
                         </Link>
                       );
@@ -292,32 +278,27 @@ export default function DashboardLayout({
               key={item.name}
               href={item.href!}
               onClick={onLinkClick}
-              className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
-                isActive
-                  ? 'text-blue-600 bg-blue-50'
-                  : 'text-gray-700 hover:bg-gray-50'
+              className={`flex items-center gap-2 px-3 py-1.5 transition-colors ${
+                isActive ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:bg-gray-50'
               }`}
             >
-              <Icon className={`w-5 h-5 ${isActive ? 'text-blue-600' : 'text-gray-400'}`} />
+              <Icon className={`w-4 h-4 ${isActive ? 'text-blue-600' : 'text-gray-400'}`} />
               <span className="font-medium">{item.name}</span>
             </Link>
           );
         })}
       </nav>
 
-      {/* Logout Section */}
-      <div className="p-4 border-t border-gray-100">
+      {/* Logout - Compact */}
+      <div className="p-2 border-t border-gray-100">
         <button
-          onClick={() => {
-            handleLogout();
-            onLinkClick?.();
-          }}
-          className="w-full flex items-center gap-3 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+          onClick={() => { handleLogout(); onLinkClick?.(); }}
+          className="w-full flex items-center gap-2 px-2 py-1.5 text-xs text-gray-600 hover:bg-gray-50 rounded transition-colors"
         >
-          <div className="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-semibold text-xs">{getInitial(user?.name || '')}</span>
+          <div className="w-6 h-6 bg-gray-800 rounded-full flex items-center justify-center">
+            <span className="text-white font-medium text-[10px]">{getInitial(user?.name || '')}</span>
           </div>
-          <span className="font-medium">Logout</span>
+          <span>Logout</span>
         </button>
       </div>
     </div>
@@ -325,55 +306,37 @@ export default function DashboardLayout({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Desktop Sidebar */}
-      <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-64 lg:bg-white lg:border-r lg:border-gray-100 lg:flex lg:flex-col">
+      {/* Desktop Sidebar - Narrower */}
+      <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:w-52 lg:bg-white lg:border-r lg:border-gray-100 lg:flex lg:flex-col">
         <SidebarContent />
       </aside>
 
       {/* Mobile Sidebar */}
       <div className={`lg:hidden fixed inset-0 z-50 transition-opacity duration-300 ${showMobileMenu ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        <div
-          className="absolute inset-0 bg-black bg-opacity-50 transition-opacity"
-          onClick={() => setShowMobileMenu(false)}
-        />
-        <aside className={`absolute left-0 top-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ${showMobileMenu ? 'translate-x-0' : '-translate-x-full'}`}>
-          <SidebarContent
-            onLinkClick={() => setShowMobileMenu(false)}
-            onClose={() => setShowMobileMenu(false)}
-          />
+        <div className="absolute inset-0 bg-black/50" onClick={() => setShowMobileMenu(false)} />
+        <aside className={`absolute left-0 top-0 h-full w-52 bg-white shadow-lg transform transition-transform duration-300 ${showMobileMenu ? 'translate-x-0' : '-translate-x-full'}`}>
+          <SidebarContent onLinkClick={() => setShowMobileMenu(false)} onClose={() => setShowMobileMenu(false)} />
         </aside>
       </div>
 
       {/* Main Content */}
-      <div className="lg:pl-64 flex flex-col min-h-screen">
-        {/* Top Bar */}
-        <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm">
-          <div className="flex items-center justify-between px-4 lg:px-6 h-14">
-            {/* Mobile Menu Button */}
+      <div className="lg:pl-52 flex flex-col min-h-screen">
+        {/* Top Bar - Shorter */}
+        <header className="sticky top-0 z-30 bg-white border-b border-gray-100">
+          <div className="flex items-center justify-between px-3 lg:px-4 h-11">
             <button
               onClick={() => setShowMobileMenu(true)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-              aria-label="Open menu"
+              className="lg:hidden p-1.5 rounded hover:bg-gray-100"
             >
-              <Menu className="w-5 h-5 text-gray-700" />
+              <Menu className="w-4 h-4 text-gray-600" />
             </button>
-
-            {/* Page Title */}
-            <div className="flex-1 lg:flex-none text-center lg:text-left">
-              <h1 className="text-sm lg:text-base font-medium text-gray-900 truncate px-2">
-                {getPageTitle()}
-              </h1>
-            </div>
-
-            {/* Spacer for mobile */}
-            <div className="lg:hidden w-10" />
+            <h1 className="text-sm font-medium text-gray-900">{getPageTitle()}</h1>
+            <div className="lg:hidden w-8" />
           </div>
         </header>
 
         {/* Main Content Area */}
-        <main className="flex-1 bg-gray-50">
-          {children}
-        </main>
+        <main className="flex-1 bg-gray-50">{children}</main>
       </div>
     </div>
   );
