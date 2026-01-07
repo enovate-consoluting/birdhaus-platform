@@ -8,8 +8,8 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { usePathname } from 'next/navigation';
+import { logout, AuthUser } from '@/lib/auth';
 import {
   LayoutDashboard,
   Users,
@@ -36,15 +36,16 @@ const adminNavItems: NavItem[] = [
   { name: 'Settings', href: '/dashboard/settings', icon: Settings },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  user: AuthUser;
+}
+
+export default function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname();
-  const router = useRouter();
   const [modeOpen, setModeOpen] = useState(false);
 
-  const handleLogout = async () => {
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    router.push('/login');
+  const handleLogout = () => {
+    logout('/login');
   };
 
   const handleSwitchToFactory = () => {
@@ -116,6 +117,10 @@ export default function Sidebar() {
 
       {/* User Section */}
       <div className="p-4 border-t border-gray-800">
+        <div className="mb-3 px-3">
+          <div className="text-sm font-medium text-white">{user.name}</div>
+          <div className="text-xs text-gray-400">{user.email}</div>
+        </div>
         <button
           onClick={handleLogout}
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"

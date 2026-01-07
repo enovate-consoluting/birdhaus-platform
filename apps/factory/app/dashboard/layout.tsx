@@ -1135,6 +1135,27 @@ function SidebarContent({
         </div>
       </div>
 
+      {/* Mode Switcher - Super Admin and Admin only */}
+      {(user?.role === 'super_admin' || user?.role === 'admin') && (
+        <div className="px-4 py-3 border-b border-gray-100">
+          <div className="flex gap-2">
+            <button
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg"
+            >
+              <Factory className="w-4 h-4" />
+              Factory
+            </button>
+            <button
+              onClick={() => window.location.href = 'https://admin.birdhausapp.com'}
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              <Settings className="w-4 h-4" />
+              Admin
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* CLIENT Notification Summary */}
       {user?.role === 'client' && notificationCounts.total > 0 && (
         <div className="mx-4 mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">

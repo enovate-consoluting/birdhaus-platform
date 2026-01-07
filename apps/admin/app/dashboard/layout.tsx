@@ -1,6 +1,6 @@
 /**
  * Dashboard Layout - Protected routes wrapper
- * Includes sidebar navigation
+ * Uses localStorage session (shared with Factory)
  * Last Modified: January 2026
  */
 
@@ -8,7 +8,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { isSessionValid, getCurrentUser, AuthUser } from '@/lib/auth';
 import Sidebar from '@/components/Sidebar';
 import { Loader2 } from 'lucide-react';
 
@@ -19,21 +19,23 @@ export default function DashboardLayout({
 }) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [authenticated, setAuthenticated] = useState(false);
+  const [user, setUser] = useState<AuthUser | null>(null);
 
   useEffect(() => {
-    async function checkAuth() {
-      const supabase = createClient();
-      const { data: { session } } = await supabase.auth.getSession();
-
-      if (!session) {
-        router.push('/login');
-      } else {
-        setAuthenticated(true);
-      }
-      setLoading(false);
+    // Check localStorage session
+    if (!isSessionValid()) {
+      router.push('/login?message=session_expired');
+      return;
     }
-    checkAuth();
+
+    const currentUser = getCurrentUser();
+    if (!currentUser) {
+      router.push('/login');
+      return;
+    }
+
+    setUser(currentUser);
+    setLoading(false);
   }, [router]);
 
   if (loading) {
@@ -44,13 +46,13 @@ export default function DashboardLayout({
     );
   }
 
-  if (!authenticated) {
+  if (!user) {
     return null;
   }
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar />
+      <Sidebar user={user} />
       <main className="flex-1 overflow-auto">
         {children}
       </main>
