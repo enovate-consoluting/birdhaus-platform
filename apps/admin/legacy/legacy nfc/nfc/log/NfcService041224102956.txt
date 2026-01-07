@@ -1,0 +1,27 @@
+Begin NFC generator...<br>
+2024-04-12T10:30:37-07:00<br>Generating 61000 NFCs<br>
+Spool 35 created with 2500 tags<br>
+Spool 36 created with 2500 tags<br>
+Spool 37 created with 2500 tags<br>
+Spool 38 created with 2500 tags<br>
+Spool 39 created with 2500 tags<br>
+Spool 40 created with 2500 tags<br>
+Spool 41 created with 2500 tags<br>
+Spool 42 created with 2500 tags<br>
+Spool 43 created with 2500 tags<br>
+Spool 44 created with 2500 tags<br>
+Spool 45 created with 2500 tags<br>
+Spool 46 created with 2500 tags<br>
+Spool 47 created with 2500 tags<br>
+Spool 48 created with 2500 tags<br>
+Spool 49 created with 2500 tags<br>
+Spool 50 created with 2500 tags<br>
+Spool 51 created with 2500 tags<br>
+Spool 52 created with 2500 tags<br>
+Spool 53 created with 2500 tags<br>
+Spool 54 created with 2500 tags<br>
+Spool 55 created with 2500 tags<br>
+Spool 56 created with 2500 tags<br>
+Spool 57 created with 2500 tags<br>
+Spool 58 created with 2500 tags<br>
+Spool 59 created with 2500 tags<br>

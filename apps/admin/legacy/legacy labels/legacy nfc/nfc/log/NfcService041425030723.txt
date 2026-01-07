@@ -1,0 +1,3 @@
+Begin NFC generator...<br>
+2025-04-14T03:08:38-07:00<br>Generating 1 NFCs<br>
+Spool 3126 created with 2500 tags<br>
