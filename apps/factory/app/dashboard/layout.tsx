@@ -1146,7 +1146,26 @@ function SidebarContent({
               Factory
             </button>
             <button
-              onClick={() => window.location.href = 'https://admin.birdhausapp.com'}
+              onClick={async () => {
+                try {
+                  // Generate SSO token
+                  const response = await fetch('/api/auth/sso-token', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user }),
+                  });
+                  const result = await response.json();
+                  if (result.success && result.token) {
+                    // Redirect to Admin with token
+                    window.location.href = `https://admin.birdhausapp.com/auth/callback?token=${result.token}`;
+                  } else {
+                    // Fallback to regular login
+                    window.location.href = 'https://admin.birdhausapp.com/login';
+                  }
+                } catch {
+                  window.location.href = 'https://admin.birdhausapp.com/login';
+                }
+              }}
               className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors"
             >
               <Settings className="w-4 h-4" />
