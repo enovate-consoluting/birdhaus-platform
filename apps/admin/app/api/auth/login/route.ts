@@ -33,6 +33,18 @@ export async function POST(request: Request) {
       );
     }
 
+    // Verify Factory Supabase environment variables are set
+    if (!process.env.FACTORY_SUPABASE_URL || !process.env.FACTORY_SUPABASE_SERVICE_ROLE_KEY) {
+      console.error('Missing Factory Supabase credentials:', {
+        hasUrl: !!process.env.FACTORY_SUPABASE_URL,
+        hasKey: !!process.env.FACTORY_SUPABASE_SERVICE_ROLE_KEY,
+      });
+      return NextResponse.json(
+        { success: false, error: 'Server configuration error' },
+        { status: 500 }
+      );
+    }
+
     const supabase = getFactorySupabase();
 
     // Fetch user from Factory database
@@ -42,7 +54,16 @@ export async function POST(request: Request) {
       .eq('email', email.toLowerCase().trim())
       .single();
 
-    if (userError || !userData) {
+    if (userError) {
+      console.error('Supabase query error:', userError.message, userError.code);
+      return NextResponse.json(
+        { success: false, error: 'Invalid email or password' },
+        { status: 401 }
+      );
+    }
+
+    if (!userData) {
+      console.error('User not found for email:', email.toLowerCase().trim());
       return NextResponse.json(
         { success: false, error: 'Invalid email or password' },
         { status: 401 }
