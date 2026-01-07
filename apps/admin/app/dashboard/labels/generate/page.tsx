@@ -228,6 +228,7 @@ export default function LabelsGeneratePage() {
               <option key={c.client_id} value={c.client_id}>{c.company_name}</option>
             ))}
           </select>
+          <div className="flex-1" />
           <label className="flex items-center gap-1.5 text-xs text-gray-600">
             <input
               type="checkbox"
@@ -239,7 +240,7 @@ export default function LabelsGeneratePage() {
           </label>
           <button
             type="submit"
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-500 text-white text-xs font-medium rounded-lg hover:bg-blue-600 transition-colors"
           >
             <ArrowRight className="w-3.5 h-3.5" />
             Proceed
