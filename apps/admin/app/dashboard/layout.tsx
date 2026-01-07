@@ -16,10 +16,8 @@ import {
   Tag,
   Smartphone,
   Settings,
-  LogOut,
   Menu,
   X,
-  ChevronDown,
   Factory,
   Shield,
 } from 'lucide-react';
@@ -44,7 +42,6 @@ export default function DashboardLayout({
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [modeOpen, setModeOpen] = useState(false);
 
   useEffect(() => {
     if (!isSessionValid()) {
@@ -156,41 +153,22 @@ export default function DashboardLayout({
         </div>
       </div>
 
-      {/* Mode Switcher */}
+      {/* Mode Switcher - Two buttons like Factory */}
       <div className="px-4 py-3 border-b border-gray-100">
-        <div className="relative">
+        <div className="flex gap-2">
           <button
-            onClick={() => setModeOpen(!modeOpen)}
-            className="w-full flex items-center justify-between p-3 rounded-xl bg-gray-50 hover:bg-gray-100 transition-colors"
+            onClick={handleSwitchToFactory}
+            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors"
           >
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Shield className="w-4 h-4 text-white" />
-              </div>
-              <div className="text-left">
-                <div className="font-semibold text-sm text-gray-900">Admin</div>
-                <div className="text-xs text-gray-500">Platform Settings</div>
-              </div>
-            </div>
-            <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${modeOpen ? 'rotate-180' : ''}`} />
+            <Factory className="w-4 h-4" />
+            Factory
           </button>
-
-          {modeOpen && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border border-gray-200 shadow-xl z-50 overflow-hidden">
-              <button
-                onClick={handleSwitchToFactory}
-                className="w-full flex items-center gap-3 p-3 hover:bg-gray-50 transition-colors"
-              >
-                <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-                  <Factory className="w-4 h-4 text-white" />
-                </div>
-                <div className="text-left">
-                  <div className="font-semibold text-sm text-gray-900">Factory Orders</div>
-                  <div className="text-xs text-gray-500">Manufacturing</div>
-                </div>
-              </button>
-            </div>
-          )}
+          <button
+            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg"
+          >
+            <Shield className="w-4 h-4" />
+            Admin
+          </button>
         </div>
       </div>
 

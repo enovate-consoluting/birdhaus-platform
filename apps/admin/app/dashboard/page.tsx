@@ -15,7 +15,7 @@ const stats = [
   { name: 'Active Labels', value: '--', icon: Tag, color: 'bg-green-500' },
   { name: 'NFC Registrations', value: '--', icon: Smartphone, color: 'bg-purple-500' },
   { name: 'Pending Orders', value: '--', icon: Package, color: 'bg-orange-500' },
-];
+] as const;
 
 const features = [
   {
@@ -43,72 +43,55 @@ const features = [
 
 export default function DashboardPage() {
   return (
-    <div className="p-8">
+    <div className="p-4 lg:p-6">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Welcome to Birdhaus Admin</h1>
-        <p className="mt-1 text-gray-500">
+      <div className="mb-6">
+        <h1 className="text-lg font-semibold text-gray-900">Welcome to Birdhaus Admin</h1>
+        <p className="text-sm text-gray-500">
           Manage clients, labels, NFC tags, and platform settings.
         </p>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      {/* Stats Grid - Compact */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         {stats.map((stat) => (
           <div
             key={stat.name}
-            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6"
+            className="bg-white rounded-lg shadow-sm border border-gray-100 p-4"
           >
-            <div className="flex items-center gap-4">
-              <div className={`w-12 h-12 ${stat.color} rounded-xl flex items-center justify-center`}>
-                <stat.icon className="w-6 h-6 text-white" />
+            <div className="flex items-center gap-3">
+              <div className={`w-9 h-9 ${stat.color} rounded-lg flex items-center justify-center`}>
+                <stat.icon className="w-4 h-4 text-white" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">{stat.name}</p>
-                <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                <p className="text-xs font-medium text-gray-500">{stat.name}</p>
+                <p className="text-lg font-semibold text-gray-900">{stat.value}</p>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Feature Cards */}
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">Admin Features</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Feature Cards - Compact */}
+      <h2 className="text-sm font-semibold text-gray-900 mb-3">Quick Access</h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {features.map((feature) => (
           <Link
             key={feature.name}
             href={feature.href}
-            className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md hover:border-gray-300 transition-all"
+            className="bg-white rounded-lg shadow-sm border border-gray-100 p-4 hover:shadow-md hover:border-gray-200 transition-all"
           >
-            <div className="flex items-center gap-4">
-              <div className={`w-12 h-12 ${feature.color} rounded-xl flex items-center justify-center`}>
-                <feature.icon className="w-6 h-6" />
+            <div className="flex items-center gap-3">
+              <div className={`w-9 h-9 ${feature.color} rounded-lg flex items-center justify-center`}>
+                <feature.icon className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">{feature.name}</h3>
-                <p className="text-sm text-gray-500">{feature.description}</p>
+                <h3 className="text-sm font-medium text-gray-900">{feature.name}</h3>
+                <p className="text-xs text-gray-500">{feature.description}</p>
               </div>
             </div>
           </Link>
         ))}
-      </div>
-
-      {/* Quick Info */}
-      <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-xl">
-        <div className="flex items-start gap-3">
-          <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-            <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </div>
-          <div>
-            <h4 className="font-medium text-blue-900">Mode Switcher</h4>
-            <p className="text-sm text-blue-700 mt-1">
-              Use the dropdown in the sidebar to switch between Admin and Factory Orders.
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   );
