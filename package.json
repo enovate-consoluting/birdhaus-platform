@@ -1,0 +1,19 @@
+{
+  "name": "birdhaus-platform",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:factory": "npm run dev --workspace=apps/factory",
+    "dev:admin": "npm run dev --workspace=apps/admin",
+    "build:factory": "npm run build --workspace=apps/factory",
+    "build:admin": "npm run build --workspace=apps/admin",
+    "build": "npm run build --workspaces --if-present"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0"
+  }
+}
